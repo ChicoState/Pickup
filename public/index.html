@@ -1,0 +1,52 @@
+    <!-- Skeleton for Learning HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing Forum</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Because you'll eventually want to make this thing look presentable -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to Pickup!</h1>
+    </header>
+    
+    <!-- Login Section -->
+    <section id="login">
+        <h2>Login</h2>
+        <form action="/forum" method="get">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username"><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br><br>
+            <button type="submit">Login</button>
+          </form>
+        </form>
+    </section>
+
+    <!-- Post Section -->
+    <section id="post-form" style="display: none;"> <!-- Hidden until user logs in, unless you're feeling rebellious and want chaos -->
+        <h2>Host a Game</h2>
+        <form action="/post" method="POST">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+            <br>
+            <label for="content">Post Content:</label>
+            <textarea id="content" name="content" rows="5" required></textarea>
+            <br>
+            <button type="submit">Submit Post</button>
+        </form>
+    </section>
+
+    <!-- Forum Posts Section -->
+    <section id="posts">
+        <h2>Latest Game Posts</h2>
+        <ul>
+            <!-- Posts will be dynamically added here by the magic of JavaScript or server-side rendering -->
+        </ul>
+    </section>
+
+    <script src="app.js"></script> <!-- Because at some point, you'll need functionality -->
+</body>
+</html>
