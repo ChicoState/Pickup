@@ -3,6 +3,9 @@ const path = require('path');
 const app = express();
 const port = 8080;
 
+// Serve static files from the 'public' directory (for styles.css)
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Serve index.html for the root URL
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

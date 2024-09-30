@@ -1,0 +1,39 @@
+/* Content Wrapper for Side-by-Side Layout */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* Post Form Styling */
+#post-form {
+    width: 45%;
+    background-color: rgb(157, 213, 255);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#posts {
+    width: 50%;
+}
+
+ul li {
+    background-color: rgb(157, 213, 255);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    #post-form, #posts {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}

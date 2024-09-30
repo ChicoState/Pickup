@@ -4,8 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Forum</title>
+  <link rel="stylesheet" href="/css/forum-styles.css"> <!-- Specific CSS for forum -->
 </head>
 <body>
-  <h1>Hello</h1>
+  <header>
+    <h1>Pickup Forum</h1>
+  </header>
+
+  <main>
+    <div class="content-wrapper">
+      <section id="post-form">
+        <h2>Post a New Game</h2>
+        <form action="/post" method="POST">
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" required>
+          <br>
+          <textarea id="content" name="content" rows="5" required></textarea>
+          <br>
+          <button type="submit">Submit Post</button>
+        </form>
+      </section>
+
+      <section id="posts">
+        <h2>Latest Game Posts</h2>
+        <ul>
+          <!-- Sample post -->
+          <li>
+            <h3>Pickup Basketball at 5 PM</h3>
+            <p>Anyone down for a quick game at the campus courts?</p>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
 </body>
 </html>
