@@ -36,6 +36,15 @@ aside {
     width: 65%;
 }
 
+.post-card {
+    width: 100%; /* Stretch the card to full width */
+    max-width: 600px; /* Or whatever feels spacious but not overly large */
+    margin: 20px auto; /* Center the card and give some breathing room */
+    background-color: white; /* Ensure it stays clean and readable */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Keep the same box shadow look */
+}
+
+
 article {
     background-color: white;
     border-radius: 10px;
