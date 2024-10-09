@@ -13,7 +13,7 @@ install python, then run `source ./venv/bin/activate` then `python -m pip instal
 to make an admin user, follow the test run steps and instead of running `python mysite/manage.py runserver`, run `python mysite/manage.py createsuperuser` then follow the creation steps and notify other team members of the new superuser
 
 ### To Run with docker:
-install python and docker, then use `Docker compose up`
+install python and docker, then use `docker compose up`
 
 
 Both routes will host the site at localhost:8000
