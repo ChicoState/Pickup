@@ -1,0 +1,19 @@
+services:
+  redis:
+    image: redis:latest
+
+  web:
+    build: .
+    restart: always
+    volumes:
+       - .:/code
+    ports:
+      - 8000:8000
+    develop:
+      watch:
+        - action: rebuild
+          path: .
+          target: /code
+    depends_on:
+      - redis
+    command: ["python", "/code/mysite/manage.py", "runserver", "0.0.0.0:8000"]

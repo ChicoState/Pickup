@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block stylo %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock stylo %}
+{% block content %}
+<div class="container text-center">
+    <h1 class='title'>New Arrival?</h1>
+    <form action="/register/" method="post">    <!-- Registration form -->
+            <div class="column">
+            {%csrf_token%}
+            <div class="form-group">
+                <label for="username">Username?</label>
+                {{form.username}}
+            </div>
+            <div class="form-group">
+                <label for="email">Email?</label>
+                {{form.email}}
+            </div>
+            <div class="form-group">
+                <label for="password1">Password?</label>
+                {{form.password1}}
+            </div>
+            <div class="form-group">
+                <label for="password2">Double check your spelling!</label>
+                {{form.password2}}
+            </div>
+            <input type="submit" value="Register" class="button">
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+        </form>
+    </div>
+    <a href="/"><input type='button' class='button' value="Oops, silly me"></a>
+</div>
+{% endblock content %}
+{% block scripts %}{% endblock scripts %}
