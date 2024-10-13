@@ -1,21 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 {% load static %}
 {% block stylo %}
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock stylo %}
 {% block content %}
 <div class="container text-center" id="cont">
-    <h1 class="logTitle">Login</h1>
+    <h1 class="logTitle">Log in to your Pickup Account</h1> <!-- Title with lowercase "u" -->
     <div class='column'>
-        <form class='form' action="/login/" method="post">  <!-- Login form -->
-            {%csrf_token%}
-            <div class="form-group">{{form.username}}</div>
-            <div class="form-group">{{form.password}}</div>
-            <!-- {{form}} -->
+        <form class='form' action="/login/" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username" class="form-control"> <!-- Manually added field with placeholder -->
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" class="form-control"> <!-- Manually added field with placeholder -->
+            </div>
             <input type="submit" value="Login" class="button btn-primary">
-            <input type="hidden" name="next" value="{{request.GET.next}}">
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
         </form>
-        <a href="/register/" class="link text-center">New here?</a>
+        <a href="/register/" class="link text-center">New here? Create a Pickup Account</a>
     </div>
 </div>
 {% endblock content %}
