@@ -7,14 +7,37 @@ from . import models
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+CAT_CHOICES = (
+    ('Choose a Category', 'NULL'),
+    ('Sports', 'SPORTS'),
+    ('Gaming', 'VIDEO GAMES'),
+)
+
 class PostForm(forms.ModelForm):
-    post_loc = forms.CharField(label="Where are we meeting?", max_length=255, required=True)
-    post_title = forms.CharField(label="What are we playing?", max_length=255, required=True)
-    post_text = forms.CharField(label="What's going on?", max_length=255, required=True)
-    exclude = ('author', 'rsvp_list')
+    post_loc = forms.CharField(
+        label="Where are we meeting?",
+        max_length=255,
+        required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'Enter the location'})
+    )
+    post_title = forms.CharField(
+        label="What are we playing?",
+        max_length=255,
+        required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'Enter the game title'})
+    )
+    post_text = forms.CharField(
+        label="What's going on?",
+        max_length=255,
+        required=True,
+        widget=forms.Textarea(attrs={'placeholder': 'Enter a description'})
+    )
+    catergory= forms.CharField(label='Choose a Category', widget=forms.Select(choices=CAT_CHOICES))
     class Meta:
         model = models.Post
-        fields = ('post_text', 'post_loc', 'post_title')
+        fields = ('post_text', 'catergory','post_loc', 'post_title')
+        exclude = ('author', 'rsvp_list')
+
     
 
 class RegistrationForm(UserCreationForm):

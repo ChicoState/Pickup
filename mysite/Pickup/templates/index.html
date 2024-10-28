@@ -8,24 +8,23 @@
     <h1>Pickup Forum</h1>
     <a href="/login/"><h2>Login</h2></a>
     </header>
-    </div>
     <section class="content-wrapper">
         <aside>
             <h2>Post a New Game</h2>        <!-- Form for posting a new activity -->
             <form action="/upload/" method="POST">
                 {%csrf_token%}
                 <div class="form-group">
-                    <label for="post_title">Title</label>
                     {{form.post_title}}
                 </div>
                 <div class="form-group">
-                    <label for="post_text">Description</label>
                     {{form.post_text}}
                 </div>
                 <div class="form-group">
-                    <label for="post_loc">Location</label>
                     {{form.post_loc}}
                 </div>
+                <div class="form-group">
+                    {{form.catergory}}
+            </div>
                 <input type="submit" value="Submit Post" class="button btn-primary">
             </form>
         </aside>
@@ -39,6 +38,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{p.post_title}}</h5>
                             <p class="card-text">{{p.post_text}}</p>
+                            </form>
                             <div v-if="p.rsvp">
                                 <p class="card-text">{{p.post_loc}}</p>
                             </div>
@@ -53,7 +53,7 @@
         </section>
     </section>
     <footer class='footer'>
-        <p> &nbsp; <!-- footer content here, like copyright etc, use '&copy;' --> </p>
+        <p>&nbsp;</p>  <!-- footer content here, like copyright etc, use '&copy;' --> </p>
     </footer>
 {% endblock %}
 {% block scripts %}
