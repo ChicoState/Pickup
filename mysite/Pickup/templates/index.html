@@ -2,6 +2,7 @@
 {% load static %}
 {% block stylo %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">     <!-- Load stylesheet -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> <!-- flatpickr stylesheet -->
 {% endblock stylo %}
 {%block content%}
     <header>
@@ -22,6 +23,23 @@
                 <div class="form-group">
                     {{ form.post_loc }}
                 </div>
+
+
+
+                <!-- Checkbox for enabling date/time picker -->
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="enable-datetime" onclick="toggleDateTimePicker()">
+                        Add Date & Time
+                    </label>
+                </div>
+                <!-- Date-time picker input, hidden initially -->
+                <div class="form-group" id="datetime-container" style="display: none;">
+                    <input type="text" id="datetime-picker" placeholder="Select date and time" class="form-control">
+                </div>
+                
+
+
                 <input type="submit" value="Submit Post" class="button btn-primary">
             </form>
         </aside>
