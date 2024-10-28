@@ -1,16 +1,119 @@
-.container{
-    padding: 10%;
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
 }
-.title{
-    color: black;
+
+/* Form structure */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
 }
-.form-group{
-    color: black;
+
+
+.form-group {
+    display: grid;
+    grid-template-columns: 150px 1fr; 
+    align-items: center;
+    gap: 10px; 
 }
-#photo{
-    background-color: aliceblue;
-    /* doesn't actually work, but fixes issue with upload*/
+
+
+label {
+    font-weight: bold;
+    font-size: 14px;
 }
-body{
-    background: aliceblue
+
+
+input[type="text"], input[type="email"], input[type="password"] {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%; 
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    box-sizing: border-box; 
 }
+
+.button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: #d2f1f4;
+}
+
+
+.custom-shape-divider-bottom-1729541279 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1729541279 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 233px;
+}
+
+.custom-shape-divider-bottom-1729541279 .shape-fill {
+    fill: #6AAEF1A3;
+}
+
+/* Top wavies */
+.custom-shape-divider-top-1727896835 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1727896835 svg {
+    position: relative;
+    display: block;
+    width: calc(106% + 1.3px);
+    height: 35px;
+}
+
+.custom-shape-divider-top-1727896835 .shape-fill {
+    fill: #bcf2fc;
+}
+
+/* Bottom wavies */
+.custom-shape-divider-bottom-1727896901 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1727896901 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 2.0px);
+    height: 50px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1727896901 .shape-fill {
+    fill: #bcf2fc;
+}
+
