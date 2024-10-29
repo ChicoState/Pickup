@@ -86,10 +86,16 @@
     
     // Initialize flatpickr on the date-time input
     flatpickr("#datetime-picker", {
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
-        minDate: "today" // optional (for disallowing past dates)
-    });
+    enableTime: true,
+    time_24hr: false,   // Use 12-hour time with AM/PM
+    dateFormat: "Y-m-d h:i K", // Display date as YYYY-MM-DD and time as h:i AM/PM
+    minDate: "today", // Optional, to disallow past dates
+    onClose: function(selectedDates, dateStr, instance) {
+        // Format the displayed date to 12-hour format with AM/PM
+        const formattedDate = instance.formatDate(selectedDates[0], "Y-m-d h:i K");
+        instance.input.value = formattedDate;
+    }
+});
 </script>
 {% endblock scripts %}
 
