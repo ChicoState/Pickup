@@ -10,3 +10,9 @@ class Post(models.Model):
     rsvp_list = models.ManyToManyField(User, related_name='rsvp')
     class Meta:
         db_table = "post"
+
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=255)
+    tagged_posts = models.ManyToManyField(Post, related_name="post_tags")
+    class Meta:
+        db_table = "tag"
