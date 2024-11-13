@@ -8,9 +8,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 CAT_CHOICES = (
-    ('Choose a Category', 'NULL'),
-    ('Sports', 'SPORTS'),
-    ('Gaming', 'VIDEO GAMES'),
+    ('Choose a Category', 'Choose a Category'),
+    ('Sports', 'Sports'),
+    ('Gaming', 'Video Games'),
+)
+
+SPORT_CHOICES = (
+    ('Basketball', 'Basketball'),
+    ('Football', 'Football'),
+    ('Soccer', 'Soccer'),
 )
 
 class PostForm(forms.ModelForm):
@@ -33,6 +39,8 @@ class PostForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'placeholder': 'Enter a description'})
     )
     catergory= forms.CharField(label='Choose a Category', widget=forms.Select(choices=CAT_CHOICES))
+    sportcatergory= forms.CharField(label='Choose a Sport', widget=forms.Select(choices=SPORT_CHOICES))
+
     class Meta:
         model = models.Post
         fields = ('post_text', 'catergory','post_loc', 'post_title')
