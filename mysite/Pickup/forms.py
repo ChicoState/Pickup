@@ -26,10 +26,15 @@ class PostForm(forms.ModelForm):
         required=True,
         widget=forms.Textarea(attrs={'placeholder': 'Enter a description'})
     )
-
+    post_tags = forms.CharField(
+        label="Any tags?",
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Any Tags?'})
+        )
     class Meta:
         model = models.Post
-        fields = ('post_text', 'post_loc', 'post_title')
+        fields = ('post_text', 'post_loc', 'post_title', 'post_tags')
         exclude = ('author', 'rsvp_list')
 
     
