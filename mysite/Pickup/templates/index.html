@@ -24,21 +24,12 @@
                     {{ form.post_loc }}
                 </div>
 
-
-
-                <!-- Checkbox for enabling date/time picker -->
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" id="enable-datetime" onclick="toggleDateTimePicker()">
-                        Add Date & Time
-                    </label>
-                </div>
-                <!-- Date-time picker input, hidden initially -->
-                <div class="form-group" id="datetime-container" style="display: none;">
-                    <input type="text" id="datetime-picker" placeholder="Select date and time" class="form-control">
-                    {{ form.post_event_time }}
-                </div>
-
+<!-- Date-time picker input, visible by default now, (no checkbox) -->
+<div class="form-group">
+    <label for="datetime-picker">Event Date & Time</label>
+    <input type="text" id="datetime-picker" placeholder="Select date and time" class="form-control">
+    {{ form.event_time }} <!--  the bound field in forms.py -->
+</div>
 
 
                 <input type="submit" value="Submit Post" class="button btn-primary">
@@ -70,7 +61,7 @@
         </section>
         
     </section>
-    
+
     <footer class='footer'>
         <p>&nbsp;</p> <!-- footer content here, like copyright etc, use '&copy;' -->
     </footer>
