@@ -36,6 +36,7 @@
                 <!-- Date-time picker input, hidden initially -->
                 <div class="form-group" id="datetime-container" style="display: none;">
                     <input type="text" id="datetime-picker" placeholder="Select date and time" class="form-control">
+                    {{ form.post_event_time }}
                 </div>
 
 
@@ -51,10 +52,12 @@
                 <div v-for="p in posts">
                     <div class="card post-card">
                         <div class="card-body">
-                            <h5 class="card-title">{{p.post_title}}</h5>
-                            <p class="card-text">{{p.post_text}}</p>
+                            <h5 class="card-title">{{ p.post_title }}</h5>
+                            <p class="card-text">{{ p.post_text }}</p>
+                            <p class="card-text">Location: {{ p.post_loc }}</p>
+                            <p class="card-text">Event Time: {{ p.event_time | date:"Y-m-d h:i A" }}</p> <!-- 12-hour AM/PM format -->
                             <div v-if="p.rsvp">
-                                <p class="card-text">{{p.post_loc}}</p>
+                                <p class="card-text">RSVPs: {{ p.rsvp_list.count }}</p>
                             </div>
                             <div v-else-if="current_user">
                                 <a href="#" class="btn btn-primary">Join Game</a>
@@ -65,7 +68,9 @@
             </div>
             {% endverbatim %}
         </section>
+        
     </section>
+    
     <footer class='footer'>
         <p>&nbsp;</p> <!-- footer content here, like copyright etc, use '&copy;' -->
     </footer>
