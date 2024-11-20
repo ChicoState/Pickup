@@ -2,6 +2,7 @@
 {% load static %}
 {% block stylo %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">     <!-- Load stylesheet -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> <!-- flatpickr stylesheet -->
 {% endblock stylo %}
 {%block content%}
     <header>
@@ -14,39 +15,40 @@
             <form action="/upload/" method="POST">
                 {%csrf_token%}
                 <div class="form-group">
-                    {{form.post_title}}
+                    {{ form.post_title }}
                 </div>
                 <div class="form-group">
-                    {{form.post_text}}
+                    {{ form.post_text }}
                 </div>
                 <div class="form-group">
-                    {{form.post_loc}}
+                    {{ form.post_loc }}
                 </div>
-            <div class="form-group">
-                {{form.catergory}}
-            </div>
-            {% if form.catergory.value == "Sports" %}
-                <div class="form-group">
-                    {{form.sportcatergory}}
-                </div>
-            {% endif %}
-        </div>
+
+<!-- Date-time picker input, visible by default now, (no checkbox) -->
+<div class="form-group">
+    <label for="datetime-picker">Event Date & Time</label>
+    <input type="text" id="datetime-picker" placeholder="Select date and time" class="form-control">
+    {{ form.event_time }} <!--  the bound field in forms.py -->
+</div>
+
+
                 <input type="submit" value="Submit Post" class="button btn-primary">
             </form>
         </aside>
 
         <section id="posts">
             <h2>Latest Game Posts</h2>
-            {% verbatim  %}     <!-- Post loading loop -->
+            {% verbatim %}
             <div id="post-list">
                 <div v-for="p in posts">
                     <div class="card post-card">
                         <div class="card-body">
-                            <h5 class="card-title">{{p.post_title}}</h5>
-                            <p class="card-text">{{p.post_text}}</p>
-                            </form>
+                            <h5 class="card-title">{{ p.post_title }}</h5>
+                            <p class="card-text">{{ p.post_text }}</p>
+                            <p class="card-text">Location: {{ p.post_loc }}</p>
+                            <p class="card-text">Event Time: {{ p.event_time | date:"Y-m-d h:i A" }}</p> <!-- 12-hour AM/PM format -->
                             <div v-if="p.rsvp">
-                                <p class="card-text">{{p.post_loc}}</p>
+                                <p class="card-text">RSVPs: {{ p.rsvp_list.count }}</p>
                             </div>
                             <div v-else-if="current_user">
                                 <a href="#" class="btn btn-primary">Join Game</a>
@@ -55,18 +57,45 @@
                     </div>
                 </div>
             </div>
-            {% endverbatim  %}
+            {% endverbatim %}
         </section>
+        
     </section>
+
     <footer class='footer'>
-        <p>&nbsp;</p>  <!-- footer content here, like copyright etc, use '&copy;' --> </p>
+        <p>&nbsp;</p> <!-- footer content here, like copyright etc, use '&copy;' -->
     </footer>
 {% endblock %}
 {% block scripts %}
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>      <!-- Load VUE for auto refresh-->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{% static 'js/myvue.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> <!-- flatpickr script -->
+
+<script>
+    // Function to toggle the date-time picker visibility
+    function toggleDateTimePicker() {
+        const checkbox = document.getElementById('enable-datetime');
+        const datetimeContainer = document.getElementById('datetime-container');
+        datetimeContainer.style.display = checkbox.checked ? 'block' : 'none';
+    }
+    
+    // Initialize flatpickr on the date-time input
+    flatpickr("#datetime-picker", {
+    enableTime: true,
+    time_24hr: false,   // Use 12-hour time with AM/PM
+    dateFormat: "Y-m-d h:i K", // Display date as YYYY-MM-DD and time as h:i AM/PM
+    minDate: "today", // Optional, to disallow past dates
+    onClose: function(selectedDates, dateStr, instance) {
+        // Format the displayed date to 12-hour format with AM/PM
+        const formattedDate = instance.formatDate(selectedDates[0], "Y-m-d h:i K");
+        instance.input.value = formattedDate;
+    }
+});
+</script>
 {% endblock scripts %}
+
+
 {% block postBod %}
     <!-- Begin Fancy wavies -->
     <div class="custom-shape-divider-top-1727896835">
