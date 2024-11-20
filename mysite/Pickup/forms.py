@@ -31,10 +31,15 @@ class PostForm(forms.ModelForm):
         required=True,  # required, or not since it'll default to the current time if left blank?
         widget=forms.DateTimeInput(attrs={'id': 'datetime-picker', 'placeholder': 'Select date and time'})  # Bind the date-time picker:
     )
-
+    post_tags = forms.CharField(
+        label="Any tags?",
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Any Tags?'})
+        )
     class Meta:
         model = models.Post
-        fields = ('post_text', 'post_loc', 'post_title',"event_time")
+        fields = ('post_text', 'post_loc', 'post_title', 'post_tags', 'event_time')
         exclude = ('author', 'rsvp_list')
 
     

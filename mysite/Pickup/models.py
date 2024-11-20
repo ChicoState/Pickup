@@ -12,3 +12,9 @@ class Post(models.Model):
     event_time = models.DateTimeField(("event time"), default=timezone.now)  # Defaults to current time
     class Meta:
         db_table = "post"
+
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=255)
+    tagged_posts = models.ManyToManyField(Post, related_name="post_tags")
+    class Meta:
+        db_table = "tag"
