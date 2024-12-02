@@ -11,30 +11,28 @@
     </header>
     <section class="content-wrapper">
         <aside>
-            <h2>Post a New Game</h2>        <!-- Form for posting a new activity -->
+            <h2>Post a New Game</h2> <!-- Form for posting a new activity -->
             <form action="/upload/" method="POST">
-                {%csrf_token%}
+                {% csrf_token %}
                 <div class="form-group">
                     {{ form.post_title }}
                 </div>
+                <br>
                 <div class="form-group">
                     {{ form.post_text }}
                 </div>
+                <br>
                 <div class="form-group">
                     {{ form.post_loc }}
                 </div>
-
-<!-- Date-time picker input, visible by default now, (no checkbox) -->
-<div class="form-group">
-    <label for="datetime-picker">Event Date & Time</label>
-    <input type="text" id="datetime-picker" placeholder="Select date and time" class="form-control">
-    {{ form.event_time }} <!--  the bound field in forms.py -->
-</div>
-
-
+                <br>
+                <div class="form-group">
+                    {{ form.event_time }} <!-- This will render the input field from your Django form -->
+                </div>
+                <br>
                 <input type="submit" value="Submit Post" class="button btn-primary">
             </form>
-        </aside>
+        </aside>        
 
         <section id="posts">
             <h2>Latest Game Posts</h2>
