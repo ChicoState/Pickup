@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: public.ecr.aws/h7b1f2u2/pickup:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        command: ["python", "/code/mysite/manage.py", "runserver", "0.0.0.0:8000"]
