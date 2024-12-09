@@ -8,6 +8,8 @@ class Post(models.Model):
     post_loc = models.CharField(max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     rsvp_list = models.ManyToManyField(User, related_name='rsvp')
+    date_time = models.DateTimeField()  
+
     class Meta:
         db_table = "post"
 

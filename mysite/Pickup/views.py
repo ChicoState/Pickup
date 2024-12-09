@@ -1,26 +1,40 @@
 from django.shortcuts import render, redirect
-from urllib import request
 from . import models
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from . import forms
 
-# Create your views here.
 def index(request):
     current_user = request.user
-    form = forms.PostForm(request.POST)
+    if request.method == "POST":
+        form = forms.PostForm(request.POST)
+        if form.is_valid():
+            postF = form.save(commit=False)
+            postF.author = request.user
+            postF.date_time = form.cleaned_data['date_time']
+            postF.post_loc = form.cleaned_data['post_loc']  # Save the location
+            postF.save()
+            postF.rsvp_list.add(request.user)
+            return redirect('/')
+    else:
+        form = forms.PostForm()
+    
+    posts = models.Post.objects.all()
+
     context = {
         'current_user': current_user,
         'form': form,
         'title': 'Pickup',
+        'posts': posts,
+        'google_maps_api_key': 'AIzaSyATgY252mj0kipD4snpGnc9Hdrj4UlLFVA'
     }
     return render(request, 'index.html', context=context)
 
 def postJson(request):
-    rsvp=[]
+    rsvp = []
     if request.user.is_authenticated:
-        tmpposts=request.user.rsvp.all()
+        tmpposts = request.user.rsvp.all()
         for p in tmpposts:
             rsvp.append(p.pk)
     p_objects = models.Post.objects.all()
@@ -38,6 +52,7 @@ def postJson(request):
         tempp["post_title"] = p.post_title
         tempp["post_text"] = p.post_text
         tempp["post_loc"] = p.post_loc
+        tempp["date_time"] = p.date_time  # Include date and time
         p_dictionary['posts'] += [tempp]
     return JsonResponse(p_dictionary)
 
