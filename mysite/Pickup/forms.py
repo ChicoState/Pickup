@@ -7,6 +7,8 @@ from . import models
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from .models import Profile
+
 CAT_CHOICES = (
     ('Choose a Category', 'Choose a Category'),
     ('Sports', 'Sports'),
@@ -72,3 +74,14 @@ class RegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+# for profile update
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email']
+        
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar']     

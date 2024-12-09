@@ -1,4 +1,4 @@
-d{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block stylo %}
 <link rel="stylesheet" href="{% static 'css/register.css' %}">
@@ -11,7 +11,7 @@ d{% extends 'base.html' %}
 {% block content %}
 <div class="container text-center">
     <h1 class='title'>New Arrival?</h1>
-    <form action="/register/" method="post" onsubmit="return validatePasswords()"> 
+    <form action="/register/" method="post" onsubmit="return validatePasswords()">
         <div class="column">
             {%csrf_token%}
             <div class="form-group">
@@ -30,7 +30,7 @@ d{% extends 'base.html' %}
                 <label for="password2">Double check your spelling!</label>
                 <input type="password" name="password2" id="password2" class="form-control">
             </div>
-            <div id="error-message" style="color:#4b00c2;"></div> 
+            <div id="error-message" style="color:#4b00c2;"></div>
             <input type="submit" value="Register" class="button">
             <input type="hidden" name="next" value="{{request.GET.next}}">
         </div>
@@ -51,11 +51,11 @@ d{% extends 'base.html' %}
 
         if (password1 !== password2) {
             errorMessage.textContent = "Passwords do not match!";
-            return false; 
+            return false;
         }
 
-        errorMessage.textContent = ""; 
-        return true; 
+        errorMessage.textContent = "";
+        return true;
     }
 </script>
 {% endblock scripts %}
@@ -77,4 +77,3 @@ d{% extends 'base.html' %}
         </svg>
     </div>
 {% endblock postBod %}
-	
