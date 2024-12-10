@@ -6,7 +6,6 @@ from django.db.models.signals import post_save #add this
 #import PIL
 # 
 # 
-#from PIL import Image
 from PIL import Image
  
 class Post(models.Model):
