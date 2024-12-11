@@ -26,7 +26,7 @@ class PostForm(forms.ModelForm):
         label="Where are we meeting?",
         max_length=255,
         required=True,
-        widget=forms.TextInput(attrs={'placeholder': 'Enter the location'})
+        widget=forms.TextInput(attrs={'placeholder': 'Enter the address'}) 
     )
     post_title = forms.CharField(
         label="What are we playing?",
@@ -46,11 +46,16 @@ class PostForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(attrs={'placeholder': 'Any Tags?'})
         )
+    date_time = forms.DateTimeField(
+        label="When is it happening?",
+        required=True,
+        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'})
+    )
     catergory= forms.CharField(label='Choose a Category', widget=forms.Select(choices=CAT_CHOICES))
     sportcatergory= forms.CharField(label='Choose a Sport', widget=forms.Select(choices=SPORT_CHOICES))
     class Meta:
         model = models.Post
-        fields = ('post_text', 'catergory','post_loc', 'post_title', 'post_tags', 'event_time')
+        fields = ('post_text', 'catergory','post_loc', 'post_title', 'post_tags', 'event_time', 'date_time')
         exclude = ('author', 'rsvp_list')
 
     
