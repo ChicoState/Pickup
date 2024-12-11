@@ -11,7 +11,7 @@
 {% block content %}
 <div class="container text-center">
     <h1 class='title'>New Arrival?</h1>
-    <form action="/register/" method="post" onsubmit="return validatePasswords()">
+    <form action="/register/" method="post" onsubmit="return">
         <div class="column">
             {%csrf_token%}
             <div class="form-group">
@@ -39,25 +39,38 @@
 </div>
 {% endblock content %}
 {% block scripts %}
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="{% static 'js/myvue.js' %}"></script>
-
 <script>
-    function validatePasswords() {
+
+    document.getElementById('password1').addEventListener('input', function () {
+        updateValidationFeedback();
+    });
+    document.getElementById('password2').addEventListener('input', function () {
+        updateValidationFeedback();
+    });
+    function updateValidationFeedback() {
+
         const password1 = document.getElementById('password1').value;
         const password2 = document.getElementById('password2').value;
         const errorMessage = document.getElementById('error-message');
 
-        if (password1 !== password2) {
-            errorMessage.textContent = "Passwords do not match!";
-            return false;
-        }
+        const lengthValid = password1.length >= 8;
+        const uppercaseValid = /[A-Z]/.test(password1);
+        const lowercaseValid = /[a-z]/.test(password1);
+        const numberValid = /\d/.test(password1);
+        const specialCharValid = /[!@#$%^&*(),.?":{}|<>]/.test(password1);
+        const passwordsMatch = password1 == password2;
 
-        errorMessage.textContent = "";
-        return true;
+        if (!lengthValid || !uppercaseValid || !lowercaseValid || !numberValid || !specialCharValid) {
+            errorMessage.textContent = "Password must be at least 8 characters long and include an uppercase letter, a number, and a special character.";
+        } else if (!passwordsMatch) {
+            errorMessage.textContent = "Passwords do not match!";
+        } else {
+            errorMessage.textContent = ""; 
+        }
     }
 </script>
+
+
 {% endblock scripts %}
 {% block postBod %}
     <!-- Begin Fancy wavies -->
