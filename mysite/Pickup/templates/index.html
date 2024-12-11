@@ -3,103 +3,78 @@
 {% block stylo %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">     <!-- Load stylesheet -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> <!-- flatpickr stylesheet -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
 {% endblock stylo %}
-{%block content%}
-    <header>
-    <h1>Pickup Forum</h1>
-    <a href="/login/"><h2>Login</h2></a>
-    </header>
-    <section class="content-wrapper">
-        <aside>
-            <h2>Post a New Game</h2>        <!-- Form for posting a new activity -->
-            <form action="/upload/" method="POST">
-                {%csrf_token%}
-                <div class="form-group">
-                    {{ form.post_title }}
-                </div>
-                <div class="form-group">
-                    {{ form.post_text }}
-                </div>
-                <div class="form-group">
-                    {{ form.post_loc }}
-                </div>
-
-
-
-                <!-- Checkbox for enabling date/time picker -->
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" id="enable-datetime" onclick="toggleDateTimePicker()">
-                        Add Date & Time
-                    </label>
-                </div>
-                <!-- Date-time picker input, hidden initially -->
-                <div class="form-group" id="datetime-container" style="display: none;">
-                    <input type="text" id="datetime-picker" placeholder="Select date and time" class="form-control">
-                </div>
-
-
-
-                <input type="submit" value="Submit Post" class="button btn-primary">
-            </form>
-        </aside>
-
-        <section id="posts">
-            <h2>Latest Game Posts</h2>
-            {% verbatim %}
-            <div id="post-list">
-                <div v-for="p in posts">
-                    <div class="card post-card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{p.post_title}}</h5>
-                            <p class="card-text">{{p.post_text}}</p>
-                            <div v-if="p.rsvp">
-                                <p class="card-text">{{p.post_loc}}</p>
-                            </div>
-                            <div v-else-if="current_user">
-                                <a href="#" class="btn btn-primary">Join Game</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endverbatim %}
-        </section>
-    </section>
-    <footer class='footer'>
-        <p>&nbsp;</p> <!-- footer content here, like copyright etc, use '&copy;' -->
-    </footer>
-{% endblock %}
 {% block scripts %}
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>      <!-- Load VUE for auto refresh-->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="{% static 'js/myvue.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> <!-- flatpickr script -->
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS -->
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&libraries=places"></script> <!-- Google Maps API -->
 <script>
-    // Function to toggle the date-time picker visibility
-    function toggleDateTimePicker() {
-        const checkbox = document.getElementById('enable-datetime');
-        const datetimeContainer = document.getElementById('datetime-container');
-        datetimeContainer.style.display = checkbox.checked ? 'block' : 'none';
+    function initAutocomplete() {
+        var input = document.getElementById('id_post_loc');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                // User entered the name of a Place that was not suggested and
+                // pressed the Enter key, or the Place Details request failed.
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+        });
     }
-    
-    // Initialize flatpickr on the date-time input
-    flatpickr("#datetime-picker", {
-    enableTime: true,
-    time_24hr: false,   // Use 12-hour time with AM/PM
-    dateFormat: "Y-m-d h:i K", // Display date as YYYY-MM-DD and time as h:i AM/PM
-    minDate: "today", // Optional, to disallow past dates
-    onClose: function(selectedDates, dateStr, instance) {
-        // Format the displayed date to 12-hour format with AM/PM
-        const formattedDate = instance.formatDate(selectedDates[0], "Y-m-d h:i K");
-        instance.input.value = formattedDate;
-    }
-});
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initAutocomplete();
+    });
 </script>
 {% endblock scripts %}
+{% block content %}
+<header>
+    <h1>Pickup Forum</h1>
+    <a href="/login/"><h2>Login</h2></a>
+</header>
+<section class="content-wrapper">
+    <aside>
+        <h2>Post a New Game</h2>        <!-- Form for posting a new activity -->
+        <form action="/" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.post_title }}
+            </div>
+            <div class="form-group">
+                {{ form.post_text }}
+            </div>
+            <div class="form-group">
+                {{ form.post_loc }} <!-- Address input field with autocomplete -->
+            </div>
+            <div class="form-group">
+                {{ form.date_time }} <!-- Add the date_time field -->
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </aside>
+    <div id="posts">
+        {% for post in posts %}
+            <div class="card post-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.post_title }}</h5>
+                    <p class="card-text">{{ post.post_text }}</p>
+                    <p class="card-text">{{ post.date_time }}</p> <!-- Display date and time -->
+                    <p class="card-text">{{ post.post_loc }}</p> <!-- Display address -->
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
 
-
+<footer class='footer'>
+    <p>&nbsp;</p> <!-- footer content here, like copyright etc, use '&copy;' -->
+</footer>
+{% endblock content %}
 {% block postBod %}
     <!-- Begin Fancy wavies -->
     <div class="custom-shape-divider-top-1727896835">
