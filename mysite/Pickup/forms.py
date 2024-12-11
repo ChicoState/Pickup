@@ -40,11 +40,6 @@ class PostForm(forms.ModelForm):
         required=True,
         widget=forms.Textarea(attrs={'placeholder': 'Enter a description'})
     )
-    event_time = forms.DateTimeField(
-        label="When is it happening?",
-        required=True,  # required, or not since it'll default to the current time if left blank?
-        widget=forms.DateTimeInput(attrs={'id': 'datetime-picker', 'placeholder': 'Select date and time'})  # Bind the date-time picker:
-    )
     post_tags = forms.CharField(
         label="Any tags?",
         max_length=255,
@@ -56,8 +51,6 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = models.Post
         fields = ('post_text', 'catergory','post_loc', 'post_title', 'post_tags', 'event_time')
-        exclude = ('author', 'rsvp_list')
-
         exclude = ('author', 'rsvp_list')
 
     
