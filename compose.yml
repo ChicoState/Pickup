@@ -1,3 +1,4 @@
+
 services:
   redis:
     image: redis:latest
@@ -16,4 +17,4 @@ services:
           target: /code
     depends_on:
       - redis
-    command: ["python", "/code/mysite/manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["python", "/code/mysite/manage.py", "runserver", "0.0.0.0:8000", ]

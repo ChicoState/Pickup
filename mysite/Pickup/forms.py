@@ -7,6 +7,20 @@ from . import models
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from .models import Profile
+
+CAT_CHOICES = (
+    ('Choose a Category', 'Choose a Category'),
+    ('Sports', 'Sports'),
+    ('Gaming', 'Video Games'),
+)
+
+SPORT_CHOICES = (
+    ('Basketball', 'Basketball'),
+    ('Football', 'Football'),
+    ('Soccer', 'Soccer'),
+)
+
 class PostForm(forms.ModelForm):
     post_loc = forms.CharField(
         label="Where are we meeting?",
@@ -37,9 +51,11 @@ class PostForm(forms.ModelForm):
         required=True,
         widget=forms.DateTimeInput(attrs={'type': 'datetime-local'})
     )
+    catergory= forms.CharField(label='Choose a Category', widget=forms.Select(choices=CAT_CHOICES))
+    sportcatergory= forms.CharField(label='Choose a Sport', widget=forms.Select(choices=SPORT_CHOICES))
     class Meta:
         model = models.Post
-        fields = ('post_text', 'post_loc', 'post_title', 'post_tags', 'date_time')
+        fields = ('post_text', 'catergory','post_loc', 'post_title', 'post_tags', 'event_time', 'date_time')
         exclude = ('author', 'rsvp_list')
 
     
@@ -56,3 +72,14 @@ class RegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+# for profile update
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email']
+        
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar']     

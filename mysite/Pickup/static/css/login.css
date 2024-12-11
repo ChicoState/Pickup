@@ -1,4 +1,12 @@
-/* Adjust width of input fields */
+    /* Adjust width of input fields */
+    input[type="text"], input[type="password"] {
+        width: 300px; /* Adjust this to match the old size */
+        padding: 10px; /* Optional: add some padding to make it more comfortable */
+        border-radius: 5px; /* Keep it consistent with the button style */
+        border: 1px solid #ccc;
+    }
+    
+    /* Adjust width of input fields */
 input[type="text"], input[type="password"] {
     width: 300px; /* Adjust this to match the old size */
     padding: 10px; /* Optional: add some padding to make it more comfortable */
@@ -6,17 +14,20 @@ input[type="text"], input[type="password"] {
     border: 1px solid #ccc;
 }
 
-#cont {
-    padding: 10%;
-}
+#cont  {
+        padding: 10%;
+    }
+
 
 .logTitle {
     color: black;
 }
 
+
 body {
     background: aliceblue;
 }
+
 
 /* Header Styling */
 header {
@@ -30,6 +41,7 @@ h1 {
     font-size: 2.5em;
 }
 
+/* Login Form Styling */
 /* Center and align the form */
 .form {
     margin: auto;

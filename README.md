@@ -18,6 +18,9 @@ install python and docker, then use `docker compose up`
 
 Both routes will host the site at localhost:8000
 
+### To Stop docker:
+Run `docker compose down`
+
 ### To update python requirements 
 `python -m pip freeze > requirements.txt` while inside of venv
 
